@@ -12,14 +12,29 @@
 	<properties>
 		<cfparser.version>${project.version}</cfparser.version>
 		<dependency.dir>${project.basedir}/lib</dependency.dir>
-		<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+		<maven.compiler.compilerVersion>21</maven.compiler.compilerVersion>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.github.cfparser</groupId>
 			<artifactId>cfml.parsing</artifactId>
-			<version>${cfparser.version}</version>
+			<version>2.6.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.github.cfparser</groupId>
+		    <artifactId>cfml.dictionary</artifactId>
+		    <version>2.5.0</version>
+		</dependency>		
+		<dependency>
+		    <groupId>org.antlr</groupId>
+		    <artifactId>antlr</artifactId>
+		    <version>3.5.3</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.antlr</groupId>
+		    <artifactId>antlr4</artifactId>
+		    <version>4.13.2</version>
 		</dependency>
 	</dependencies>
 	<build>

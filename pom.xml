@@ -10,27 +10,21 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<tycho.version>1.0.0</tycho.version>
-		<tycho-extras.version>1.0.0</tycho-extras.version>
+		<tycho.version>5.0.4</tycho.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<mars-repo.url>http://download.eclipse.org/releases/mars</mars-repo.url>
-		<neon-repo.url>http://download.eclipse.org/releases/neon</neon-repo.url>
-		<oxygen-repo.url>http://download.eclipse.org/releases/oxygen/201706281000/</oxygen-repo.url>
- 		<maven.compiler.source>1.8</maven.compiler.source>
-    	<maven.compiler.target>1.8</maven.compiler.target>
+		<repository.id>eclipse-2026-09</repository.id>
+		<repository.url>https://download.eclipse.org/releases/2026-09/</repository.url>
+ 		<maven.compiler.source>21</maven.compiler.source>
+    	<maven.compiler.target>21</maven.compiler.target>
+    	
 	</properties>
 
 	<repositories>
 		<repository>
-			<id>oxygen</id>
-			<url>${oxygen-repo.url}</url>
+			<id>${repository.id}</id>
 			<layout>p2</layout>
+			<url>${repository.url}</url>
 		</repository>
-        <repository>
-          <id>cfmlprojects</id>
-          <name>cfmlprojects</name>
-          <url>http://cfmlprojects.org/artifacts</url>
-        </repository>
 	</repositories>
 
 	<modules>
@@ -38,38 +32,6 @@
 	</modules>
 
 	<profiles>
-		<profile>
-			<id>sign</id>
-			<activation>
-				<property>
-					<name>sign</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-jarsigner-plugin</artifactId>
-						<version>1.2</version>
-						<configuration>
-							<keystore>${cfeclipse.keystore.path}</keystore>
-							<storepass>${cfeclipse.keystore.password}</storepass>
-							<alias>signing</alias>
-							<keypass>${cfeclipse.keystore.password}</keypass>
-						</configuration>
-						<executions>
-							<execution>
-								<id>sign</id>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
 		<profile>
 			<id>dev</id>
 			<activation>
@@ -129,16 +91,17 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
+					<pomDependencies>wrapAsBundle</pomDependencies>
 					<environments>
 						<environment>
 							<os>linux</os>
 							<ws>gtk</ws>
-							<arch>x86</arch>
+							<arch>x86_64</arch>
 						</environment>
 						<environment>
 							<os>linux</os>
 							<ws>gtk</ws>
-							<arch>x86_64</arch>
+							<arch>aarch64</arch>
 						</environment>
 						<environment>
 							<os>win32</os>
@@ -165,9 +128,9 @@
 				<version>${tycho.version}</version>
 				<dependencies>
 					<dependency>
-						<groupId>org.eclipse.tycho.extras</groupId>
+						<groupId>org.eclipse.tycho</groupId>
 						<artifactId>tycho-buildtimestamp-jgit</artifactId>
-						<version>${tycho-extras.version}</version>
+						<version>${tycho.version}</version>
 					</dependency>
 				</dependencies>
 				<configuration>

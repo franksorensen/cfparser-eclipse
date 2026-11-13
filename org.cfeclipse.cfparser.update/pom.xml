@@ -14,22 +14,16 @@
 	<properties>
 		<site.suffix></site.suffix>
 		<jboss.tycho.tools.version>1.0.0</jboss.tycho.tools.version>
-		<update.site.name>[dev] CFParser Update</update.site.name>
+		<update.site.name>CFParser Update</update.site.name>
 		<update.site.url>http://cfeclipse.org/cfparser/update${site.suffix}</update.site.url>
 		<update.site.github>http://github.com/cfeclipse/org.cfeclipse.cfparser</update.site.github>
-		<update.site.description>Development Build</update.site.description>
+		<update.site.description>Release Build</update.site.description>
 		<update.site.version>${project.version}</update.site.version>	
 		<plugin.p2.dir>target/repository-merged</plugin.p2.dir>
 		<merge.updates>true</merge.updates>
+		<repository-utils.version>4.0.7</repository-utils.version>
+		<maven-antrun-plugin.version>3.2.0</maven-antrun-plugin.version>
 	</properties>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>jboss</id>
-			<name>jboss</name>
-			<layout>default</layout>
-			<url>http://repository.jboss.org/nexus/content/repositories/releases</url>
-		</pluginRepository>
-	</pluginRepositories>
 	<profiles>
 		<profile>
 			<id>merge-updates</id>
@@ -42,9 +36,9 @@
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.eclipse.tycho.extras</groupId>
-						<artifactId>tycho-p2-extras-plugin</artifactId>
-						<version>${tycho-extras.version}</version>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-p2-plugin</artifactId>
+						<version>${tycho.version}</version>
 						<executions>
 							<execution>
 								<id>add-to-update-site</id>
@@ -70,40 +64,20 @@
 	</profiles>
 	<build>
 		<plugins>
+	
 			<plugin>
-				<groupId>org.jboss.tools.tycho-plugins</groupId>
-				<artifactId>repository-utils</artifactId>
-				<version>${jboss.tycho.tools.version}</version>
-				<executions>
-					<!-- creates index.html and other artifacts -->
-					<execution>
-						<id>generate-facade</id>
-						<phase>package</phase>
-						<goals>
-							<goal>generate-repository-facade</goal>
-						</goals>
-						<configuration>
-							<siteTemplateFolder>${project.basedir}</siteTemplateFolder>
-							<!-- configuration options for the generated HTML page -->
-							<symbols>
-								<update.site.name>${update.site.name}</update.site.name>
-								<update.site.description>${update.site.description}</update.site.description>
-								<update.site.version>${update.site.version}</update.site.version>
-								<update.site.url>${update.site.url}</update.site.url>
-								<update.site.github>${update.site.github}</update.site.github>
-								<update.site.groupId>${project.groupId}</update.site.groupId>
-							</symbols>
-							<!-- to remove the default category created for any uncategorized features or bundles, set this to true -->
-							<removeDefaultCategory>true</removeDefaultCategory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+			  <groupId>org.eclipse.tycho</groupId>
+			  <artifactId>tycho-p2-repository-plugin</artifactId>
+			  <version>${tycho.version}</version>
+			  <configuration>
+			    <includeAllDependencies>true</includeAllDependencies>
+			  </configuration>
+			</plugin>			
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.7</version>
+				<version>${maven-antrun-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>copy-webdocs-and-whatnot</id>
@@ -123,6 +97,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			
 
 		</plugins>
 	</build>

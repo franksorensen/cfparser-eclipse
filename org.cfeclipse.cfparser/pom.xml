@@ -50,11 +50,14 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
+				<version>3.18.0</version>
+				<configuration>
+					<release>21</release>
+				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.1</version>
+				<version>3.11.0</version>
 				<executions>
 					<execution>
 						<id>copy-dependencies</id>
@@ -73,7 +76,7 @@
 			<plugin>
 				<groupId>pl.project13.maven</groupId>
 				<artifactId>git-commit-id-plugin</artifactId>
-				<version>2.2.2</version>
+				<version>4.9.10</version>
 				<executions>
 					<execution>
 						<phase>validate</phase>
